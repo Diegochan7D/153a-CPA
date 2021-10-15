@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, Image, TextInput, FlatList, SafeAreaVie
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HomeScreen from './components/HomeScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -39,84 +40,7 @@ const MyStack = () => {
   );
 };
 
-const HomeScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-
-      {/*header*/}
-      <View style = {{flex: 2,backgroundColor: '#808080', justifyContent: 'center'}}>
-        <Text style = {styles.header}>
-          Brandeis Anonymous Forum</Text>
-      </View>
-
-      {/*blank line*/}
-      <View style = {{flex: 1, backgroundColor: 'white', alignItems: 'flex-start'}}>
-        <Text style = {{fontSize: 20}}> Speak freely here as an anonymous......</Text>
-        <Button
-          title = "About this forum"
-          color = '#808080'
-          onPress={() =>
-            navigation.navigate('About')
-          }
-        />
-
-      </View>
-
-      <View style = {{flexDirection: 'row', flex: 4}}>
-        {/*Confessions*/}
-        <View style = {{flex: 1,backgroundColor: '#ffb6c1', justifyContent: 'center', alignItems: 'center'}}>
-
-        <Button
-          title = "Confessions"
-          color = '#ffb6c1'
-          onPress={() =>
-            navigation.navigate('Confessions')
-          }
-          />
-        </View>
-
-        {/*Moods*/}
-        <View style = {{flex: 1,backgroundColor: '#add8e6', justifyContent: 'center', alignItems: 'center'}}>
-
-          <Button
-            title = "Moods"
-            color = '#add8e6'
-            onPress={() =>
-              navigation.navigate('Moods')
-            }
-            />
-        </View>
-      </View>
-
-      <View style = {{flexDirection: 'row', flex: 4}}>
-        {/*Complaints*/}
-        <View style = {{flex: 1,backgroundColor: '#c0c0c0', justifyContent: 'center', alignItems: 'center'}}>
-          <Button
-            title = "Complaints"
-            color = '#c0c0c0'
-            onPress={() =>
-              navigation.navigate('Complaints')
-            }
-            />
-        </View>
-
-        {/*Gossips*/}
-        <View style = {{flex: 1,backgroundColor: '#dda0dd', justifyContent: 'center', alignItems: 'center'}}>
-
-          <Button
-            title = "Gossip"
-            color = '#dda0dd'
-            onPress={() =>
-              navigation.navigate('Gossips')
-            }
-            />
-
-        </View>
-      </View>
-
-    </View>
-  );
-}
+<HomeScreen/>
 
 const AboutScreen = ({navigation}) => {
   return (
