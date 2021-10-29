@@ -17,11 +17,11 @@ const Tab = createBottomTabNavigator();
 
 const MyTab = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Guide" component={GuideScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+        <Tab.Screen name="Guide" component={GuideScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+        <Tab.Screen name="Settings" component={SettingsScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+      </Tab.Navigator>
   );
 };
 
@@ -30,29 +30,34 @@ const MyStack = () => {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen
-              name="MyTab"
+              name="Back"
               component={MyTab}
               options={{ headerShown: false }}
             />
             <Stack.Screen
               name = "Home"
               component = {HomeScreen}
+              options = {{headerStyle: {backgroundColor: '#808080'}}}
             />
             <Stack.Screen
               name = "Confessions"
               component = {ConfessionsScreen}
+              options = {{headerStyle: {backgroundColor: '#ffb6c1'}}}
             />
             <Stack.Screen
               name = "Moods"
               component = {MoodsScreen}
+              options = {{headerStyle: {backgroundColor: '#add8e6'}}}
             />
             <Stack.Screen
               name = "Complaints"
               component = {ComplaintsScreen}
+              options = {{headerStyle: {backgroundColor: '#b0c4ee'}}}
             />
             <Stack.Screen
               name = "Gossips"
               component = {GossipsScreen}
+              options = {{headerStyle: {backgroundColor: '#dda0dd'}}}
             />
 
           </Stack.Navigator>

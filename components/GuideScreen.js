@@ -8,7 +8,7 @@ const GuideScreen = ({navigation}) => {
         <Text style = {{fontSize: 25, fontWeight: 'bold'}}> This is an anonymous forum for Brandeis Community, containing four main branches. </Text>
         <Text style = {{fontSize: 20, color:'#ffb6c1'}}>-Confessions: Confess secret love </Text>
         <Text style = {{fontSize: 20, color:'#add8e6'}}>-Moods: Share your moods today </Text>
-        <Text style = {{fontSize: 20, color:'#c0c0c0'}}>-Complaints: Vent dissatisfaction</Text>
+        <Text style = {{fontSize: 20, color:'#b0c4ee'}}>-Complaints: Vent dissatisfaction</Text>
         <Text style = {{fontSize: 20, color:'#dda0dd'}}>-Gossip: Talk about interesting news</Text>
         <Text style = {{fontSize: 20}}>Guide: </Text>
         <Text style = {{fontSize: 20}}>1.Enter a branch</Text>

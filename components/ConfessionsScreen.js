@@ -1,14 +1,15 @@
 import React, { useState, useEffect }  from 'react';
-import { StyleSheet, Text, View, Button, Image, TextInput, FlatList, SafeAreaView} from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TextInput, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import anonymous1 from '../assets/anonymous1.jpg';
-
+import * as ImagePicker from 'expo-image-picker';
+import sharedImage from '../components/SettingsScreen'
 
 const ConfessionsScreen = ({navigation}) => {
   const [id,setId] = useState(1)
-  const [pic,setPic] = useState('https://img.88icon.com/download/jpg/20200717/e7a5cbd5c2ae6d23ac572616b08cb95e_512_512.jpg!88bg')
+  const [pic,setPic] = useState('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
   const [comment,setComment] = useState("")
   const [confessions,setConfessions] = useState([])
   let myDate = new Date();
@@ -34,7 +35,7 @@ const ConfessionsScreen = ({navigation}) => {
            // this happens the first time the app is loaded
            // as there is nothing in storage...
            setConfessions([])
-           setPic('https://img.88icon.com/download/jpg/20200717/e7a5cbd5c2ae6d23ac572616b08cb95e_512_512.jpg!88bg')
+           setPic('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
            setComment("")
            setId(1)
 
@@ -67,8 +68,8 @@ const ConfessionsScreen = ({navigation}) => {
         <View style = {{flex:1,flexDirection:'row'}}>
           <Text> {item.id} </Text>
           <Image source = {item.pic}
-            style = {{width: 80,
-                    height: 80}}/>
+            style = {styles.image}
+            />
           <Text> {item.comment} </Text>
         </View>
         <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
@@ -93,14 +94,6 @@ const ConfessionsScreen = ({navigation}) => {
              setComment(text);
            }}
         value = {comment}
-      />
-
-      <TextInput
-        style={styles.input2}
-        placeholder="Choose a picture(url) for yourself"
-        onChangeText={text => {
-             setPic(text);
-           }}
       />
 
       <Button
@@ -176,6 +169,22 @@ const styles = StyleSheet.create({
     margin: 12,
     justifyContent: 'center',
   },
+
+  thumbnail: {
+    width: 250,
+    height: 250,
+    resizeMode: 'contain',
+    borderColor: 'black',
+    borderWidth: 1
+  },
+
+  image: {
+    width: 80,
+    height: 80,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+
 });
 
 export default ConfessionsScreen;

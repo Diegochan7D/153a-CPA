@@ -64,8 +64,8 @@ const MoodsScreen = ({navigation}) => {
           <View style = {{flex:1,flexDirection:'row'}}>
             <Text> {item.id} </Text>
             <Image source = {item.pic}
-              style = {{width: 80,
-                      height: 80}}/>
+              style = {styles.image}
+              />
             <Text> {item.comment} </Text>
           </View>
           <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
@@ -92,13 +92,7 @@ const MoodsScreen = ({navigation}) => {
           value = {comment}
         />
 
-        <TextInput
-          style={styles.input2}
-          placeholder="Choose a picture(url) for yourself"
-          onChangeText={text => {
-               setPic(text);
-             }}
-        />
+
 
         <Button
            title={"Post"}
@@ -174,6 +168,13 @@ const styles = StyleSheet.create({
   button: {
     margin: 12,
     justifyContent: 'center',
+  },
+
+  image: {
+    width: 80,
+    height: 80,
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });
 

@@ -9,21 +9,21 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.container}>
 
       {/*header*/}
-      <View style = {{flex: 2,backgroundColor: '#808080', justifyContent: 'center'}}>
+      <View style = {{flex: 2,backgroundColor: '#808080', justifyContent: 'center', padding: 10}}>
         <Text style = {styles.header}>
           Brandeis Anonymous Forum</Text>
       </View>
 
       {/*blank line*/}
 
-        <Text style = {{fontSize: 20}}> Choose a branch, and speak freely here as an anonymous......</Text>
+        <Text style = {{fontSize: 20}}> Speak freely here as an anonymous......</Text>
 
       <View style = {{flexDirection: 'row', flex: 4}}>
         {/*Confessions*/}
         <View style = {{flex: 1,backgroundColor: '#ffb6c1', justifyContent: 'center', alignItems: 'center'}}>
           <Button
             title = "Confessions"
-            color = '#ffb6c1'
+            color = 'white'
             onPress={() =>
               navigation.navigate('Confessions')
             }
@@ -36,7 +36,7 @@ const HomeScreen = ({navigation}) => {
 
           <Button
             title = "Moods"
-            color = '#add8e6'
+            color = 'white'
             onPress={() =>
               navigation.navigate('Moods')
             }
@@ -46,10 +46,10 @@ const HomeScreen = ({navigation}) => {
 
       <View style = {{flexDirection: 'row', flex: 4}}>
         {/*Complaints*/}
-        <View style = {{flex: 1,backgroundColor: '#c0c0c0', justifyContent: 'center', alignItems: 'center'}}>
+        <View style = {{flex: 1,backgroundColor: '#b0c4ee', justifyContent: 'center', alignItems: 'center'}}>
           <Button
             title = "Complaints"
-            color = '#c0c0c0'
+            color = 'white'
             onPress={() =>
               navigation.navigate('Complaints')
             }
@@ -61,7 +61,7 @@ const HomeScreen = ({navigation}) => {
 
           <Button
             title = "Gossip"
-            color = '#dda0dd'
+            color = 'white'
             onPress={() =>
               navigation.navigate('Gossips')
             }
@@ -81,8 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     textAlign:'left',
-    marginTop:20,
-    padding:20,
+    padding:5,
   },
 
   header: {

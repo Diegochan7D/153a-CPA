@@ -62,8 +62,8 @@ const ComplaintsScreen = ({navigation}) => {
         <View style = {{flex:1,flexDirection:'row'}}>
           <Text> {item.id} </Text>
           <Image source = {item.pic}
-            style = {{width: 80,
-                    height: 80}}/>
+            style = {styles.image}
+            />
           <Text> {item.comment} </Text>
         </View>
         <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
@@ -79,7 +79,7 @@ const ComplaintsScreen = ({navigation}) => {
           data = {complaints}
           renderItem = {renderComplaints}
         />
-      <View style = {{height: 0, borderTopWidth: 1, borderColor: '#c0c0c0'}}>
+      <View style = {{height: 0, borderTopWidth: 1, borderColor: '#b0c4ee'}}>
       </View>
       <TextInput
         style={styles.input1}
@@ -90,17 +90,11 @@ const ComplaintsScreen = ({navigation}) => {
         value = {comment}
       />
 
-      <TextInput
-        style={styles.input2}
-        placeholder="Choose a picture(url) for yourself"
-        onChangeText={text => {
-             setPic(text);
-           }}
-      />
+      
 
       <Button
          title={"Post"}
-         color="#c0c0c0"
+         color='#b0c4ee'
          onPress = {() => {
            setCurrentTime(myDate.toLocaleString())
            setId(id+1)
@@ -173,6 +167,13 @@ const styles = StyleSheet.create({
   button: {
     margin: 12,
     justifyContent: 'center',
+  },
+
+  image: {
+    width: 80,
+    height: 80,
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });
 
