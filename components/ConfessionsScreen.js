@@ -4,8 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import anonymous1 from '../assets/anonymous1.jpg';
-import * as ImagePicker from 'expo-image-picker';
-import sharedImage from '../components/SettingsScreen'
+
 
 const ConfessionsScreen = ({navigation}) => {
   const [id,setId] = useState(1)
@@ -35,7 +34,7 @@ const ConfessionsScreen = ({navigation}) => {
            // this happens the first time the app is loaded
            // as there is nothing in storage...
            setConfessions([])
-           setPic('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
+           //setPic('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
            setComment("")
            setId(1)
 
@@ -67,7 +66,7 @@ const ConfessionsScreen = ({navigation}) => {
       <View style = {styles.item}>
         <View style = {{flex:1,flexDirection:'row'}}>
           <Text> {item.id} </Text>
-          <Image source = {item.pic}
+          <Image source = {require('../assets/anonymous1.jpg')}
             style = {styles.image}
             />
           <Text> {item.comment} </Text>

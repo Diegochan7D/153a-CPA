@@ -14,10 +14,12 @@
     "@react-navigation/native-stack": "^6.1.0",
     "expo": "~42.0.1",
     "expo-cli": "^4.11.0",
+    "expo-image-picker": "~10.2.2",
     "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.2",
     "nav-react": "^1.0.5",
+    "nodemon": "^2.0.14",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "0.63.4",
@@ -26,8 +28,7 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-unimodules": "~0.14.5",
-    "react-native-web": "~0.13.12",
-    "expo-image-picker": "~10.2.2"
+    "react-native-web": "~0.13.12"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

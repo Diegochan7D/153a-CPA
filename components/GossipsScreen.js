@@ -24,14 +24,14 @@ const GossipsScreen = ({navigation}) => {
            data = JSON.parse(jsonValue)
            setGossips(data)
            setId(data.length + 1)
-           setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
+           //setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
            console.log('just set Info')
          } else {
            console.log('just read a null value from Storage')
            // this happens the first time the app is loaded
            // as there is nothing in storage...
            setGossips([])
-           setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
+           //setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
            setComment("")
            setId(1)
          }
@@ -62,7 +62,7 @@ const GossipsScreen = ({navigation}) => {
       <View style = {styles.item}>
         <View style = {{flex:1,flexDirection:'row'}}>
           <Text> {item.id} </Text>
-          <Image source = {item.pic}
+          <Image source = {require('../assets/anonymous1.jpg')}
             style = {styles.image}
             />
           <Text> {item.comment} </Text>
@@ -91,7 +91,7 @@ const GossipsScreen = ({navigation}) => {
         value = {comment}
       />
 
-      
+
 
       <Button
          title={"Post"}

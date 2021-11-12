@@ -10,7 +10,8 @@ import ConfessionsScreen from './components/ConfessionsScreen'
 import MoodsScreen from './components/MoodsScreen'
 import ComplaintsScreen from './components/ComplaintsScreen'
 import GossipsScreen from './components/GossipsScreen'
-import SettingsScreen from './components/SettingsScreen'
+import ProfilePage from './components/ProfilePage'
+import AccountPage from './components/AccountPage'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,7 +21,7 @@ const MyTab = () => {
       <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
         <Tab.Screen name="Guide" component={GuideScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
-        <Tab.Screen name="Settings" component={SettingsScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+        <Tab.Screen name="Account" component={AccountPage} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
       </Tab.Navigator>
   );
 };
@@ -58,6 +59,16 @@ const MyStack = () => {
               name = "Gossips"
               component = {GossipsScreen}
               options = {{headerStyle: {backgroundColor: '#dda0dd'}}}
+            />
+            <Stack.Screen
+              name = "Account"
+              component = {AccountPage}
+              options = {{headerStyle: {backgroundColor: '#808080'}}}
+            />
+            <Stack.Screen
+              name = "Profile"
+              component = {ProfilePage}
+              options = {{headerStyle: {backgroundColor: '#808080'}}}
             />
 
           </Stack.Navigator>

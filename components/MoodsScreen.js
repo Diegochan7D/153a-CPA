@@ -9,7 +9,7 @@ const MoodsScreen = ({navigation}) => {
     const [id,setId] = useState(1)
     const [pic,setPic] = useState("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
     const [comment,setComment] = useState("")
-    const [moods,setMoods]= useState([])
+    const [moods,setMoods] = useState([])
     let myDate = new Date();
     const [currentTime, setCurrentTime] = useState(myDate.toLocaleString())
 
@@ -31,7 +31,7 @@ const MoodsScreen = ({navigation}) => {
              // this happens the first time the app is loaded
              // as there is nothing in storage...
              setMoods([])
-             setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
+             //setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
              setComment("")
              setId(1)
            }
@@ -63,7 +63,7 @@ const MoodsScreen = ({navigation}) => {
         <View style = {styles.item}>
           <View style = {{flex:1,flexDirection:'row'}}>
             <Text> {item.id} </Text>
-            <Image source = {item.pic}
+            <Image source = {require('../assets/anonymous1.jpg')}
               style = {styles.image}
               />
             <Text> {item.comment} </Text>
