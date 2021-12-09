@@ -1,5 +1,5 @@
 import React, { useState, useEffect }  from 'react';
-import { StyleSheet, Text, View, Button, Image, TextInput} from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TextInput, TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -20,56 +20,54 @@ const HomeScreen = ({navigation}) => {
 
       <View style = {{flexDirection: 'row', flex: 4}}>
         {/*Confessions*/}
-        <View style = {{flex: 1,backgroundColor: '#ffb6c1', justifyContent: 'center', alignItems: 'center'}}>
-          <Button
-            title = "Confessions"
+          <TouchableOpacity
+            style = {{flex: 1,backgroundColor: '#ffb6c1', justifyContent: 'center', alignItems: 'center'}}
             color = 'white'
             onPress={() =>
               navigation.navigate('Confessions')
             }
-            />
+          >
+              <Text style = {{color:'white', fontSize:20}}> Confessions</Text>
+          </TouchableOpacity>
 
-        </View>
 
         {/*Moods*/}
-        <View style = {{flex: 1,backgroundColor: '#add8e6', justifyContent: 'center', alignItems: 'center'}}>
-
-          <Button
-            title = "Moods"
+          <TouchableOpacity
+            style = {{flex: 1,backgroundColor: '#add8e6', justifyContent: 'center', alignItems: 'center'}}
             color = 'white'
             onPress={() =>
               navigation.navigate('Moods')
             }
-            />
-        </View>
-      </View>
+          >
+            <Text style = {{color:'white', fontSize:20}}> Moods</Text>
+          </TouchableOpacity>
+        </View  >
 
       <View style = {{flexDirection: 'row', flex: 4}}>
         {/*Complaints*/}
-        <View style = {{flex: 1,backgroundColor: '#b0c4ee', justifyContent: 'center', alignItems: 'center'}}>
-          <Button
-            title = "Complaints"
+          <TouchableOpacity
+            style = {{flex: 1,backgroundColor: '#b0c4ee', justifyContent: 'center', alignItems: 'center'}}
             color = 'white'
             onPress={() =>
               navigation.navigate('Complaints')
             }
-            />
-        </View>
+            >
+              <Text style = {{color:'white', fontSize:20}}>Complaints</Text>
+            </TouchableOpacity>
+
 
         {/*Gossips*/}
-        <View style = {{flex: 1,backgroundColor: '#dda0dd', justifyContent: 'center', alignItems: 'center'}}>
-
-          <Button
-            title = "Gossip"
+          <TouchableOpacity
+            style = {{flex: 1,backgroundColor: '#dda0dd', justifyContent: 'center', alignItems: 'center'}}
             color = 'white'
             onPress={() =>
               navigation.navigate('Gossips')
             }
-            />
+            >
+              <Text style = {{color:'white', fontSize:20}}>Gossips</Text>
+          </TouchableOpacity>
 
-        </View>
       </View>
-
 
     </View>
   );

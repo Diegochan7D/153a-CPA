@@ -4,63 +4,107 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AccountTemplate from '../components/AccountTemplate'
+import Axios from 'axios'
+
+import ValueProvider,{useValue} from '../components/ValueContext';
 
 const AccountPage = ({navigation}) => {
-  const [userId, setUserId] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [userInformation, setUserInformation] = useState([]);
-  const [infoCorrect, setInfoCorrect] = useState(false);
-  const [showResult, setShowResult] = useState(false);
+  const {currentValue,setCurrentValue} = useValue()
+  const [debugging,setDebugging] = useState(true)
+  const [email,setEmail] = useState("")
+  const [secret,setSecret] = useState("")
+  const [checkedRegistration, setCheckedRegistration] = useState(false)
 
-  //Check whether the info entered exists in database
-  const checkInformation = () => {
-    for (let i = 0; i < userInformation.length; i++) {
-      if (userId == userInformation[i].userId.toString() && password == userInformation[i].password.toString()) {
-        setInfoCorrect(true);
-        break;
-      }
-      setInfoCorrect(false);
-    }
-  }
+  useEffect(() => { getUserData()}, [])
 
-  let loginResult = infoCorrect == true?
-    <View>
-      <Text style = {styles.footer}>Login successful</Text>
-      <Button
-        title = "Go to Profile"
-        color = '#ff8c00'
-        onPress = {() =>
-          navigation.navigate('Profile')
+  const registerEmail = async (email, secret) => {
+      try{
+          let appURL = currentValue.appURL
+          let result = await Axios.post(appURL+'/register',{email:email, secret:secret})
+          //let secret = result.data.secret
+          let userid = result.data.userid
+
+          await AsyncStorage.setItem(
+            '@userData',
+            JSON.stringify({...currentValue,email,secret,userid}))
+            setEmail(email)
+            setSecret(secret)
+            setCurrentValue({...currentValue, email,secret,userid})
+        }catch(e){
+          console.log('error'+e)
+          console.dir(e)
         }
-      />
-    </View>
-    :
-      <Text style = {styles.footer}> Wrong Information </Text>
+    }
 
-  let loginResultShow = showResult == true? loginResult : <></>
+    const getUserData = async () => {
+      let email = currentValue.email
+      let secret = currentValue.secret
+      const appURL = currentValue.appURL
+      // this function gets the userKey from asyncStorage if it is there
+      // if not, it goes to the appURL to get a userKey which it stores in asyncStorage
+       try {
+         console.log('in getUserData')
+         let jsonValue = await AsyncStorage.getItem('@userData')
+         //jsonValue=null
+         console.log('jsonValue = '+jsonValue)
+
+         let userData = null
+         if (jsonValue!=null) {
+           userData = JSON.parse(jsonValue)
+           let newData =
+            {appURL:currentValue.appURL,
+              email:userData.email,
+              userid:userData.userid,
+              secret:userData.secret}
+           setCurrentValue(newData)
+           setEmail(userData.email)
+           setCheckedRegistration(true)
+
+         } else {
+              console.log('else clause of Registration')
+              setCheckedRegistration(true)
+              console.log('no async, set checked to true')
+         }
+       } catch(e) {
+         console.dir(e)
+       }
+    }
+
+  let ui = <Text>nodebug</Text>
+  if (debugging) {
+    ui = (
+      <View>
+        <Text>
+            currentValue={JSON.stringify(currentValue,null,5)}
+        </Text>
+      </View>
+    )
+  }
 
   return (
     //Container
     <AccountTemplate
       header = {<Text style = {styles.header}> Please sign in </Text>}
-      footer =  {loginResultShow}
+      footer = {<Text style = {styles.header}> Footer </Text>}
     >
 
       <View style = {{flex:4, justifyContent:'center'}}>
         <Text style = {styles.text}> UserId: </Text>
         <TextInput
-          placeholder = 'UserId'
+          placeholder = ' Email'
           style = {styles.textInput}
+          value={email}
           onChangeText = {text => {
-            setUserId(text);
+            setEmail(text)
           }}
         />
         <Text style = {styles.text}> Password: </Text>
         <TextInput
           placeholder = 'Password'
           style = {styles.textInput}
+          value={secret}
           onChangeText = {text => {
-            setPassword(text);
+            setSecret(text)
           }}
         />
       </View>
@@ -68,28 +112,19 @@ const AccountPage = ({navigation}) => {
         <Button
           title = 'Sign in'
           color = '#6495ed'
-          onPress = {() => {
-            checkInformation()
-            setShowResult(true)
-          }}
+
         />
         <Text style = {{fontSize:18,color:'#696969'}}> or </Text>
         <Button
           title = 'Create an Account'
           color = '#6495ed'
           onPress = {() => {
-            const newUserInformation =
-              userInformation.concat(
-                {
-                  'userId':userId,
-                  'password':password
-                }
-              )
-            setUserInformation(newUserInformation)
             Alert.alert('Account created')
+            registerEmail(email)
           }}
         />
       </View>
+      {ui}
 
     </AccountTemplate>
   )

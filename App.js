@@ -12,68 +12,88 @@ import ComplaintsScreen from './components/ComplaintsScreen'
 import GossipsScreen from './components/GossipsScreen'
 import ProfilePage from './components/ProfilePage'
 import AccountPage from './components/AccountPage'
+import ValueProvider from './components/ValueContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
+
 const MyTab = () => {
+  const data =
+    {name:"",
+     email:"",
+     appURL: 'https://blooming-castle-71107.herokuapp.com',
+     //appURL: 'http://127.0.0.1:3000',
+     secret: "",
+   }
   return (
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
-        <Tab.Screen name="Guide" component={GuideScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
-        <Tab.Screen name="Account" component={AccountPage} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
-      </Tab.Navigator>
+      <ValueProvider value={data}>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+          <Tab.Screen name="Guide" component={GuideScreen} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+          <Tab.Screen name="Account" component={AccountPage} options = {{headerStyle: {backgroundColor: '#808080'}}}/>
+        </Tab.Navigator>
+      </ValueProvider>
   );
 };
 
 const MyStack = () => {
+  const data =
+    {name:"",
+     email:"",
+     appURL: 'https://blooming-castle-71107.herokuapp.com',
+     //appURL: 'http://127.0.0.1:3000',
+     secret: "",
+   }
   return (
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Back"
-              component={MyTab}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name = "Home"
-              component = {HomeScreen}
-              options = {{headerStyle: {backgroundColor: '#808080'}}}
-            />
-            <Stack.Screen
-              name = "Confessions"
-              component = {ConfessionsScreen}
-              options = {{headerStyle: {backgroundColor: '#ffb6c1'}}}
-            />
-            <Stack.Screen
-              name = "Moods"
-              component = {MoodsScreen}
-              options = {{headerStyle: {backgroundColor: '#add8e6'}}}
-            />
-            <Stack.Screen
-              name = "Complaints"
-              component = {ComplaintsScreen}
-              options = {{headerStyle: {backgroundColor: '#b0c4ee'}}}
-            />
-            <Stack.Screen
-              name = "Gossips"
-              component = {GossipsScreen}
-              options = {{headerStyle: {backgroundColor: '#dda0dd'}}}
-            />
-            <Stack.Screen
-              name = "Account"
-              component = {AccountPage}
-              options = {{headerStyle: {backgroundColor: '#808080'}}}
-            />
-            <Stack.Screen
-              name = "Profile"
-              component = {ProfilePage}
-              options = {{headerStyle: {backgroundColor: '#808080'}}}
-            />
+        <ValueProvider value={data}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Back"
+                component={MyTab}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name = "Home"
+                component = {HomeScreen}
+                options = {{headerStyle: {backgroundColor: '#808080'}}}
+              />
+              <Stack.Screen
+                name = "Confessions"
+                component = {ConfessionsScreen}
+                options = {{headerStyle: {backgroundColor: '#ffb6c1'}}}
+              />
+              <Stack.Screen
+                name = "Moods"
+                component = {MoodsScreen}
+                options = {{headerStyle: {backgroundColor: '#add8e6'}}}
+              />
+              <Stack.Screen
+                name = "Complaints"
+                component = {ComplaintsScreen}
+                options = {{headerStyle: {backgroundColor: '#b0c4ee'}}}
+              />
+              <Stack.Screen
+                name = "Gossips"
+                component = {GossipsScreen}
+                options = {{headerStyle: {backgroundColor: '#dda0dd'}}}
+              />
+              <Stack.Screen
+                name = "Account"
+                component = {AccountPage}
+                options = {{headerStyle: {backgroundColor: '#808080'}}}
+              />
+              <Stack.Screen
+                name = "Profile"
+                component = {ProfilePage}
+                options = {{headerStyle: {backgroundColor: '#808080'}}}
+              />
 
-          </Stack.Navigator>
-        </NavigationContainer>
-
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ValueProvider>
   );
 };
 

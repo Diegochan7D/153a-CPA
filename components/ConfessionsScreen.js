@@ -4,75 +4,91 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import anonymous1 from '../assets/anonymous1.jpg';
+import Axios from 'axios'
+import ValueProvider,{useValue} from '../components/ValueContext';
 
 
 const ConfessionsScreen = ({navigation}) => {
-  const [id,setId] = useState(1)
+  const {currentValue} = useValue();
+  //const [title,setTitle] = useState("");
+
+  const [bboard,setBboard] = useState("confessions");
+
+  const [numNewPosts,setNumNewPosts] = useState(0)
+
   const [pic,setPic] = useState('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
-  const [comment,setComment] = useState("")
-  const [confessions,setConfessions] = useState([])
-  let myDate = new Date();
-  const [currentTime, setCurrentTime] = useState(myDate.toLocaleString())
+  const [text,setText] = useState("")
+  const [posts,setPosts] = useState([])
+  //let myDate = new Date();
+  const [currentTime, setCurrentTime] = useState(null)
 
-
-   useEffect(() => {getData()}
-           ,[])
-
-
-  const getData = async () => {
-       try {
-         // the '@profile_info' can be any string
-         const jsonValue = await AsyncStorage.getItem('@confessions')
-         let data = null
-         if (jsonValue!=null) {
-           data = JSON.parse(jsonValue)
-           setConfessions(data)
-           setId(data.length + 1)
-           console.log('just set Info')
-         } else {
-           console.log('just read a null value from Storage')
-           // this happens the first time the app is loaded
-           // as there is nothing in storage...
-           setConfessions([])
-           //setPic('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
-           setComment("")
-           setId(1)
-
-         }
-       } catch(e) {
-         console.log("error in getData ")
-         // this shouldn't happen, but its good practice
-         // to check for errors!
-         console.dir(e)
-         // error reading value
-       }
+  const getDate = () => {
+      setCurrentTime(new Date().toLocaleString())
   }
 
-  const storeData = async (value) => {
-      try {
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem('@confessions', jsonValue)
-        console.log('just stored '+jsonValue)
-      } catch (e) {
-        console.log("error in storeData ")
-        console.dir(e)
-        // saving error
-      }
+  useEffect(() => {
+    // go out to the server and get the posts for the current bboard
+
+    const getPosts = async () => {
+      let result = {data:[]}
+      result =
+        await Axios.post(
+          currentValue.appURL+"/posts",
+          {bboard:bboard}
+        )
+      setPosts(result.data)
+      return result.data
+    }
+
+    const ps = getPosts()
+
+  },[numNewPosts])
+
+
+  const addPost = async () =>{
+
+    await Axios.post(currentValue.appURL+"/addComment",
+        {email:currentValue.email,
+         secret:currentValue.secret,
+         bboard:bboard,
+         text:text,
+       });
+    //setTitle("");
+    setText("");
+
+    setNumNewPosts(numNewPosts+1)
   }
 
+  const remove = async (item) => {
+    console.log('remove is called on item: ')
+    console.log(item)
+    const result = await Axios.post(currentValue.appURL+"/deletePost",
+       {email:currentValue.email,
+        secret:currentValue.secret,
+        postid:item._id})
+    console.log(result)
+    setNumNewPosts(numNewPosts+1)
+  }
 
   const renderConfessions = ({ item }) => {
+       const userid = currentValue.userid;
+       const isAuthor = userid === item.author;
+
     return (
       <View style = {styles.item}>
         <View style = {{flex:1,flexDirection:'row'}}>
-          <Text> {item.id} </Text>
+          <Text> {item.numNewPosts} </Text>
           <Image source = {require('../assets/anonymous1.jpg')}
             style = {styles.image}
             />
-          <Text> {item.comment} </Text>
+          <Text> {item.text} </Text>
         </View>
         <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
-          <Text>{item.currentTime}</Text>
+          <Text>{item.createdAt}</Text>
+          {isAuthor &&
+            <Button
+              title="Delete"
+              onPress={()=>remove(item)}/> }
         </View>
       </View>
     )
@@ -81,8 +97,10 @@ const ConfessionsScreen = ({navigation}) => {
   return (
     <View style = {styles.container}>
         <FlatList
-          data = {confessions}
+          data = {posts}
+          renderItem = {({item}) => (<renderConfessions item={item}/>)}
           renderItem = {renderConfessions}
+          keyExtractor = {(item) => item._id}
         />
       <View style = {{height: 0, borderTopWidth: 1, borderColor: '#ffb6c1'}}>
       </View>
@@ -90,30 +108,17 @@ const ConfessionsScreen = ({navigation}) => {
         style={styles.input1}
         placeholder="Say something......"
         onChangeText={text => {
-             setComment(text);
+             setText(text);
            }}
-        value = {comment}
       />
-
       <Button
-         title={"Post"}
+         title="Post"
          color="#ffb6c1"
-         onPress = {() => {
-           setCurrentTime(myDate.toLocaleString())
-           setId(id+1)
-           const newConfessions =
-             confessions.concat(
-               {
-                'id':id,
-                'pic':pic,
-                'comment':comment,
-                'currentTime':currentTime
-             })
-           setConfessions(newConfessions)
-           storeData(newConfessions)
-           setComment("")
-         }}
+         onPress = {() => addPost()}
        />
+       <View>
+          <Text> {JSON.stringify(currentValue,null,5)} </Text>
+       </View>
 
     </View>
   );

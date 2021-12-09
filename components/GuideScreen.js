@@ -11,10 +11,10 @@ const GuideScreen = ({navigation}) => {
         <Text style = {{fontSize: 20, color:'#b0c4ee'}}>-Complaints: Vent dissatisfaction</Text>
         <Text style = {{fontSize: 20, color:'#dda0dd'}}>-Gossip: Talk about interesting news</Text>
         <Text style = {{fontSize: 20}}>Guide: </Text>
-        <Text style = {{fontSize: 20}}>1.Enter a branch</Text>
-        <Text style = {{fontSize: 20}}>2.Type the words you want to say</Text>
-        <Text style = {{fontSize: 20}}>3.Paste the URL of the image you want to represent yourself</Text>
-        <Text style = {{fontSize: 20}}>4.Click the "Post" button</Text>
+        <Text style = {{fontSize: 20}}>1.Create an account</Text>
+        <Text style = {{fontSize: 20}}>2.Select a photo for yourself</Text>
+        <Text style = {{fontSize: 20}}>3.Enter a branch</Text>
+        <Text style = {{fontSize: 20}}>4.Post your message</Text>
 
       </View>
     </View>

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import PhotoId from '../components/PhotoId'
 import AccountTemplate from '../components/AccountTemplate'
-import {userId} from '../components/AccountPage'
+import AccountPage from '../components/AccountPage'
 
 const ProfilePage = ({navigation}) => {
 
@@ -24,7 +24,7 @@ const ProfilePage = ({navigation}) => {
 
   return (
     <AccountTemplate
-      header = {<Text style = {styles.header}> Welcome {userId} </Text>}
+      header = {<Text style = {styles.header}> Welcome {AccountPage.userId} </Text>}
       footer =  <Text> footer </Text>
     >
       <View style = {styles.container}>
