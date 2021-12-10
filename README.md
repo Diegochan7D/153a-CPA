@@ -10,4 +10,7 @@ Screen Shots:
 4.https://github.com/Diegochan7D/153a-CPA/blob/CPA5/assets/CPA5_4.jpg
 5.https://github.com/Diegochan7D/153a-CPA/blob/CPA5/assets/CPA5_5.jpg
 
-Developer Notes: Main technologies including Navigation, Asynchronous storage, FlatList, ImagePicker...... Later verision will realize cloud server interations.
+Video:
+https://drive.google.com/file/d/1EMipHINQMeAX8R6Xmn6wNU1ETESqgJAk/view?usp=sharing
+
+Developer Notes: Main technologies including Navigation, Asynchronous storage, FlatList, ImagePicker, Cloud Storage, Cloud server, tabNavigator... Already realized cloud server interations.
