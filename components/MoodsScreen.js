@@ -2,74 +2,81 @@ import React, { useState, useEffect }  from 'react';
 import { StyleSheet, Text, View, Button, Image, TextInput, FlatList, SafeAreaView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import anonymous1 from '../assets/anonymous1.jpg';
+import Axios from 'axios'
+import ValueProvider,{useValue} from '../components/ValueContext';
 
 
 const MoodsScreen = ({navigation}) => {
-    const [id,setId] = useState(1)
-    const [pic,setPic] = useState("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
-    const [comment,setComment] = useState("")
-    const [moods,setMoods] = useState([])
-    let myDate = new Date();
-    const [currentTime, setCurrentTime] = useState(myDate.toLocaleString())
+  const {currentValue} = useValue();
+  const bboard = "moods";
+  const [pic,setPic] = useState('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
+  const [text,setText] = useState("")
+  const [posts,setPosts] = useState([])
+  const [numNewPosts,setNumNewPosts] = useState(0)
 
-    useEffect(() => {getData()}
-             ,[])
+  useEffect(() => {
+    // go out to the server and get the posts for the current bboard
 
-    const getData = async () => {
-         try {
-           // the '@profile_info' can be any string
-           const jsonValue = await AsyncStorage.getItem('@moods')
-           let data = null
-           if (jsonValue!=null) {
-             data = JSON.parse(jsonValue)
-             setMoods(data)
-             setId(data.length + 1)
-             console.log('just set Info')
-           } else {
-             console.log('just read a null value from Storage')
-             // this happens the first time the app is loaded
-             // as there is nothing in storage...
-             setMoods([])
-             //setPic("https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300")
-             setComment("")
-             setId(1)
-           }
-         } catch(e) {
-           console.log("error in getData ")
-           // this shouldn't happen, but its good practice
-           // to check for errors!
-           console.dir(e)
-           // error reading value
-         }
+    const getPosts = async () => {
+      let result = {data:[]}
+      result =
+        await Axios.post(
+          currentValue.appURL+"/posts",
+          {bboard:bboard}
+        )
+      setPosts(result.data)
+      return result.data
     }
 
-    const storeData = async (value) => {
-        try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('@moods', jsonValue)
-          console.log('just stored '+jsonValue)
-        } catch (e) {
-          console.log("error in storeData ")
-          console.dir(e)
-          // saving error
-        }
-    }
+    const ps = getPosts()
+
+  },[numNewPosts])
+
+  const addPost = async () =>{
+
+    await Axios.post(currentValue.appURL+"/addComment",
+        {email:currentValue.email,
+         secret:currentValue.secret,
+         bboard:bboard,
+         text:text,
+       });
+    setText("");
+
+    setNumNewPosts(numNewPosts+1)
+  }
+
+  const remove = async (item) => {
+    console.log('remove is called on item: ')
+    console.log(item)
+    const result = await Axios.post(currentValue.appURL+"/deletePost",
+       {email:currentValue.email,
+        secret:currentValue.secret,
+        postid:item._id})
+    console.log(result)
+    setNumNewPosts(numNewPosts+1)
+  }
 
 
     const renderMoods = ({ item }) => {
-      return (
+      const userid = currentValue.userid;
+      const isAuthor = userid === item.author;
 
+      return (
         <View style = {styles.item}>
           <View style = {{flex:1,flexDirection:'row'}}>
-            <Text> {item.id} </Text>
+            <Text> {item.numNewPosts} </Text>
             <Image source = {require('../assets/anonymous1.jpg')}
               style = {styles.image}
               />
-            <Text> {item.comment} </Text>
+            <Text> {item.text} </Text>
           </View>
           <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
-            <Text>{item.currentTime}</Text>
+            <Text style = {{fontSize:10}}>{item.createdAt}</Text>
+            {isAuthor &&
+              <Button
+                title="Delete"
+                onPress={()=>remove(item)}/> }
           </View>
         </View>
       )
@@ -78,8 +85,9 @@ const MoodsScreen = ({navigation}) => {
     return (
       <View style = {styles.container}>
           <FlatList
-            data = {moods}
+            data = {posts}
             renderItem = {renderMoods}
+            keyExtractor = {(item) => item._id}
           />
         <View style = {{height: 0, borderTopWidth: 1, borderColor: '#add8e6'}}>
         </View>
@@ -87,9 +95,9 @@ const MoodsScreen = ({navigation}) => {
           style={styles.input1}
           placeholder="Say something......"
           onChangeText={text => {
-               setComment(text);
+               setText(text);
              }}
-          value = {comment}
+
         />
 
 
@@ -97,22 +105,7 @@ const MoodsScreen = ({navigation}) => {
         <Button
            title={"Post"}
            color="#add8e6"
-           onPress = {() => {
-             setCurrentTime(myDate.toLocaleString( ))
-             setId(id+1)
-             const newMoods =
-               moods.concat(
-                 {
-                  'id':id,
-                  'pic':pic,
-                  'comment':comment,
-                  'currentTime':currentTime
-               })
-             setMoods(newMoods)
-             storeData(newMoods)
-             setComment("")
-
-           }}
+           onPress = {() => addPost()}
          />
 
       </View>
@@ -127,8 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
 
     textAlign:'left',
-    marginTop:20,
-    padding:20,
+    marginTop:10,
+    padding:10,
   },
 
   header: {

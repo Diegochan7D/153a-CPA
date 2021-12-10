@@ -2,29 +2,19 @@ import React, { useState, useEffect }  from 'react';
 import { StyleSheet, Text, View, Button, Image, TextInput, FlatList, SafeAreaView, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import anonymous1 from '../assets/anonymous1.jpg';
 import Axios from 'axios'
 import ValueProvider,{useValue} from '../components/ValueContext';
 
 
-const ConfessionsScreen = ({navigation}) => {
+const ConfessionsScreen = () => {
   const {currentValue} = useValue();
-  //const [title,setTitle] = useState("");
-
-  const [bboard,setBboard] = useState("confessions");
-
-  const [numNewPosts,setNumNewPosts] = useState(0)
-
+  const bboard = "confessions";
   const [pic,setPic] = useState('https://img95.699pic.com/xsj/10/tm/0h.jpg!/fh/300')
   const [text,setText] = useState("")
   const [posts,setPosts] = useState([])
-  //let myDate = new Date();
-  const [currentTime, setCurrentTime] = useState(null)
+  const [numNewPosts,setNumNewPosts] = useState(0)
 
-  const getDate = () => {
-      setCurrentTime(new Date().toLocaleString())
-  }
 
   useEffect(() => {
     // go out to the server and get the posts for the current bboard
@@ -53,7 +43,6 @@ const ConfessionsScreen = ({navigation}) => {
          bboard:bboard,
          text:text,
        });
-    //setTitle("");
     setText("");
 
     setNumNewPosts(numNewPosts+1)
@@ -71,8 +60,8 @@ const ConfessionsScreen = ({navigation}) => {
   }
 
   const renderConfessions = ({ item }) => {
-       const userid = currentValue.userid;
-       const isAuthor = userid === item.author;
+    const userid = currentValue.userid;
+    const isAuthor = userid === item.author;
 
     return (
       <View style = {styles.item}>
@@ -84,11 +73,12 @@ const ConfessionsScreen = ({navigation}) => {
           <Text> {item.text} </Text>
         </View>
         <View style = {{flex:1,justifyContent:'flex-end', alignItems:'flex-end'}}>
-          <Text>{item.createdAt}</Text>
+          <Text style = {{fontSize:10}}>{item.createdAt}</Text>
           {isAuthor &&
             <Button
               title="Delete"
-              onPress={()=>remove(item)}/> }
+              onPress={()=>remove(item)}/>
+          }
         </View>
       </View>
     )
@@ -98,7 +88,6 @@ const ConfessionsScreen = ({navigation}) => {
     <View style = {styles.container}>
         <FlatList
           data = {posts}
-          renderItem = {({item}) => (<renderConfessions item={item}/>)}
           renderItem = {renderConfessions}
           keyExtractor = {(item) => item._id}
         />
@@ -116,9 +105,7 @@ const ConfessionsScreen = ({navigation}) => {
          color="#ffb6c1"
          onPress = {() => addPost()}
        />
-       <View>
-          <Text> {JSON.stringify(currentValue,null,5)} </Text>
-       </View>
+
 
     </View>
   );
@@ -131,8 +118,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
 
     textAlign:'left',
-    marginTop:20,
-    padding:20,
+    marginTop:10,
+    padding:10,
   },
 
   header: {
