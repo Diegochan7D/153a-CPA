@@ -13,4 +13,4 @@ Screen Shots:
 Video:
 https://drive.google.com/file/d/1EMipHINQMeAX8R6Xmn6wNU1ETESqgJAk/view?usp=sharing
 
-Developer Notes: Main technologies including Navigation, Asynchronous storage, FlatList, ImagePicker, Cloud Storage, Cloud server, tabNavigator... Already realized cloud server interations.
+Developer Notes: Main technologies including Navigation, Asynchronous storage, FlatList, ImagePicker, Cloud Storage, Cloud server, tabNavigator... Already realized cloud server interactions.
