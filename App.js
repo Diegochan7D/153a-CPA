@@ -16,9 +16,6 @@ import ValueProvider from './components/ValueContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const TAB_Home=require('./assets/home_blank.png');
-const TAB_Guide =require('./assets/guide.png');
-const TAB_Account=require('./assets/account.png');
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const MyTab = () => {
